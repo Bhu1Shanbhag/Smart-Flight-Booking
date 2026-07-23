@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sareen AI | Corporate Travel & Autonomous Flight Agent</title>
+    <meta name="description" content="AI-powered multi-agent autonomous corporate travel planner, optimizing flights, hotels, weather forecasts, and meeting timelines seamlessly.">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Ambient Glow & Visual Elements -->
+    <div class="hero-bg-wrapper">
+        <div class="hero-bg-image" style="background-image: url('/static/images/hero_bg.png');"></div>
+        <div class="hero-overlay"></div>
+        <div class="ambient-glow blob-1"></div>
+        <div class="ambient-glow blob-2"></div>
+    </div>
+
+    <!-- Main Header Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <div class="logo-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                <div class="logo-text">
+                    <span class="brand-name">SAREEN<span class="highlight">.AI</span></span>
+                    <span class="brand-sub">TRAVEL AGENT</span>
+                </div>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#planner" class="nav-link active"><i class="fa-solid fa-compass"></i> Planner</a>
+                <a href="#popular-routes" class="nav-link"><i class="fa-solid fa-route"></i> Popular Routes</a>
+                <a href="#ai-swarm" class="nav-link"><i class="fa-solid fa-robot"></i> Agent Swarm</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">Swarm Active</span>
+                </div>
+                <button class="btn-sm-primary" id="quick-reset-btn"><i class="fa-solid fa-plus"></i> New Trip</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-wrapper">
+        <!-- Hero Section -->
+        <section class="hero-banner">
+            <div class="hero-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Autonomous Travel Swarm Engine
+            </div>
+            <h1 class="hero-title">Smart Corporate Travel Orchestration</h1>
+            <p class="hero-description">
+                Input your destination & meeting schedule. Our specialized AI agents calculate travel buffer times, retrieve real-time weather forecasts, and match top-tier flights and hotels.
+            </p>
+
+            <div class="hero-stats-row">
+                <div class="stat-pill">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Real-time Strategy Calculation</span>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    <span>Live Weather & Transit Buffer</span>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Corporate Policy Compliant</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Planner App Container -->
+        <section id="planner" class="planner-section">
+            <div class="planner-grid">
+                <!-- Left Column: Step Wizard -->
+                <div class="wizard-container">
+                    <!-- Progress Stepper Header -->
+                    <div class="stepper-header">
+                        <div class="step-item active" data-step="1">
+                            <div class="step-num">1</div>
+                            <div class="step-label">Trip Details</div>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step-item" data-step="2">
+                            <div class="step-num">2</div>
+                            <div class="step-label">AI Strategy</div>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step-item" data-step="3">
+                            <div class="step-num">3</div>
+                            <div class="step-label">Schedule</div>
+                        </div>
+                        <div class="step-line"></div>
+                        <div class="step-item" data-step="4">
+                            <div class="step-num">4</div>
+                            <div class="step-label">Final Itinerary</div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 1: TRAVEL INPUT FORM -->
+                    <div id="step-1" class="wizard-step active">
+                        <div class="step-heading">
+                            <h2>Where is your next meeting?</h2>
+                            <p class="subtitle">Enter your origin, venue destination, date and meeting schedule.</p>
+                        </div>
+                        
+                        <form id="travel-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="origin_city"><i class="fa-solid fa-location-dot"></i> Origin City</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="origin_city" placeholder="e.g. Mumbai" value="Mumbai" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="origin_loc"><i class="fa-solid fa-building"></i> Departure Point / Office</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="origin_loc" placeholder="e.g. Saxon AI HQ, BKC" value="Saxon AI HQ" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swap-divider">
+                                <button type="button" id="btn-swap-cities" title="Swap Origin & Destination">
+                                    <i class="fa-solid fa-arrow-up-down-left-right"></i> Swap Route
+                                </button>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="destination_city"><i class="fa-solid fa-plane-arrival"></i> Destination City</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="destination_city" placeholder="e.g. Delhi" value="Delhi" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="destination_loc"><i class="fa-solid fa-map-pin"></i> Meeting Venue / Location</label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="destination_loc" placeholder="e.g. Connaught Place" value="Connaught Place" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="date"><i class="fa-solid fa-calendar-day"></i> Meeting Date</label>
+                                    <div class="input-wrapper">
+                                        <input type="date" id="date" required>
+                                    </div>
+                                    <div class="date-shortcuts">
+                                        <button type="button" class="btn-chip" id="chip-today">Today</button>
+                                        <button type="button" class="btn-chip" id="chip-tomorrow">Tomorrow</button>
+                                        <button type="button" class="btn-chip" id="chip-nextweek">Next Week</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="meeting_time"><i class="fa-solid fa-clock"></i> Meeting Start Time</label>
+                                    <div class="input-wrapper">
+                                        <input type="time" id="meeting_time" value="11:00" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-group">
+                                <label class="switch-container">
+                                    <input type="checkbox" id="return_required" checked>
+                                    <span class="switch-slider"></span>
+                                    <span class="switch-label">Include Return Flight</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-primary-glow">
+                                <span>Generate AI Strategy</span>
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- STEP 2: PROPOSED STRATEGY & REASONING -->
+                    <div id="step-2" class="wizard-step">
+                        <div class="step-heading">
+                            <h2>AI Recommended Strategy</h2>
+                            <p class="subtitle">Our planning agent calculated buffer times, weather impact, and optimal transit schedules.</p>
+                        </div>
+                        
+                        <div class="strategy-card">
+                            <div class="strategy-header">
+                                <span class="badge-tag"><i class="fa-solid fa-route"></i> Travel Timeline</span>
+                                <span class="weather-badge" id="weather-status-badge"><i class="fa-solid fa-cloud-sun"></i> Weather Factored</span>
+                            </div>
+
+                            <div class="timeline-v2">
+                                <div class="timeline-node">
+                                    <div class="node-icon"><i class="fa-solid fa-house-user"></i></div>
+                                    <div class="node-content">
+                                        <span class="node-time" id="strat-leave">--:--</span>
+                                        <span class="node-title">Leave Departure Location</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-node">
+                                    <div class="node-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                                    <div class="node-content">
+                                        <span class="node-time" id="strat-airport">--:--</span>
+                                        <span class="node-title">Reach Origin Airport</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-node">
+                                    <div class="node-icon"><i class="fa-solid fa-plane"></i></div>
+                                    <div class="node-content">
+                                        <span class="node-time" id="strat-depart">--:--</span>
+                                        <span class="node-title">Flight Takeoff</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-node">
+                                    <div class="node-icon"><i class="fa-solid fa-plane-landing"></i></div>
+                                    <div class="node-content">
+                                        <span class="node-time" id="strat-arrive">--:--</span>
+                                        <span class="node-title">Flight Touchdown</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-node highlight">
+                                    <div class="node-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div class="node-content">
+                                        <span class="node-time" id="strat-venue">--:--</span>
+                                        <span class="node-title">Arrival at Venue</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ai-reasoning-card">
+                                <div class="reasoning-header">
+                                    <i class="fa-solid fa-brain"></i>
+                                    <h4>AI Decision Rationale</h4>
+                                </div>
+                                <p id="strat-reasoning" class="reasoning-text">Analyzing route details...</p>
+                            </div>
+                        </div>
+
+                        <div class="feedback-box">
+                            <label><i class="fa-solid fa-sliders"></i> Want to refine constraints?</label>
+                            <div class="feedback-input-group">
+                                <input type="text" id="feedback-input" placeholder="e.g. Type 'proceed' or 'Cannot leave before 8:00 AM'">
+                                <button id="submit-feedback" class="btn-secondary">Confirm & Proceed</button>
+                            </div>
+                            <div class="suggestion-chips">
+                                <span class="chip-item" onclick="quickFeedback('proceed')">✓ Looks Good</span>
+                                <span class="chip-item" onclick="quickFeedback('Leave after 8 AM')">+ Leave after 8 AM</span>
+                                <span class="chip-item" onclick="quickFeedback('Prefer morning flight')">+ Morning Flight</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: MEETING DURATION -->
+                    <div id="step-3" class="wizard-step">
+                        <div class="step-heading">
+                            <h2>Meeting Duration & Return Logistics</h2>
+                            <p class="subtitle">Specify expected duration so our agents can find return flights & lodging if needed.</p>
+                        </div>
+                        
+                        <div class="duration-card">
+                            <div class="duration-icon-large">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                            <div class="form-group">
+                                <label for="meeting_hours">Expected Meeting Duration (Hours)</label>
+                                <div class="hours-picker">
+                                    <button type="button" class="btn-hours-dec" id="btn-dec-hours"><i class="fa-solid fa-minus"></i></button>
+                                    <input type="number" id="meeting_hours" step="0.5" value="3.0" min="0.5" max="12">
+                                    <button type="button" class="btn-hours-inc" id="btn-inc-hours"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+                            
+                            <div class="duration-quick-select">
+                                <button type="button" class="btn-chip" onclick="setHours(1)">1 Hour</button>
+                                <button type="button" class="btn-chip" onclick="setHours(2.5)">2.5 Hours</button>
+                                <button type="button" class="btn-chip" onclick="setHours(4)">4 Hours</button>
+                                <button type="button" class="btn-chip" onclick="setHours(6)">Full Day (6h)</button>
+                            </div>
+
+                            <button id="submit-duration" class="btn-primary-glow mt-4">
+                                <span>Search Best Flights & Hotels</span>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP LOADING: AGENT SWARM AT WORK -->
+                    <div id="step-loading" class="wizard-step loading-step">
+                        <div class="radar-spinner">
+                            <div class="pulse-ring"></div>
+                            <i class="fa-solid fa-plane-up radar-center"></i>
+                        </div>
+                        <h2>Autonomous Agents at Work</h2>
+                        <p class="subtitle">Our multi-agent system is live scraping airlines, hotel prices, and calculating transit buffers...</p>
+
+                        <div class="agents-live-grid">
+                            <div class="agent-card active">
+                                <div class="agent-icon"><i class="fa-solid fa-plane"></i></div>
+                                <div class="agent-info">
+                                    <div class="agent-name">Flight Agent</div>
+                                    <div class="agent-status-text"><i class="fa-solid fa-spinner fa-spin"></i> Scraper running...</div>
+                                </div>
+                            </div>
+                            <div class="agent-card active">
+                                <div class="agent-icon"><i class="fa-solid fa-bed"></i></div>
+                                <div class="agent-info">
+                                    <div class="agent-name">Hotel Agent</div>
+                                    <div class="agent-status-text"><i class="fa-solid fa-spinner fa-spin"></i> Checking stays...</div>
+                                </div>
+                            </div>
+                            <div class="agent-card active">
+                                <div class="agent-icon"><i class="fa-solid fa-brain"></i></div>
+                                <div class="agent-info">
+                                    <div class="agent-name">User Proxy Agent</div>
+                                    <div class="agent-status-text"><i class="fa-solid fa-check"></i> Constraints validated</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: FINAL ITINERARY & BOOKINGS -->
+                    <div id="step-4" class="wizard-step">
+                        <div class="step-heading">
+                            <h2>Your Final Corporate Itinerary</h2>
+                            <p class="subtitle">Optimal flight routes and executive hotel stays tailored to your schedule.</p>
+                        </div>
+                        
+                        <div class="results-container">
+                            <div class="result-card flight-card">
+                                <div class="card-header">
+                                    <span class="card-badge"><i class="fa-solid fa-plane"></i> Recommended Flight</span>
+                                    <span class="price-tag" id="res-flight-price">₹0</span>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Outbound leg -->
+                                    <div class="flight-leg">
+                                        <div class="leg-label outbound-label"><i class="fa-solid fa-plane-departure"></i> Outbound</div>
+                                        <div class="flight-airline">
+                                            <h3 id="res-airline">Airline</h3>
+                                        </div>
+                                        <div class="flight-timing-box">
+                                            <div class="time-block">
+                                                <span class="label">Departure</span>
+                                                <span class="value" id="res-outbound-departure">--:--</span>
+                                            </div>
+                                            <div class="leg-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                                            <div class="time-block">
+                                                <span class="label">Arrival</span>
+                                                <span class="value" id="res-outbound-arrival">--:--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Return leg (shown only if return flight exists) -->
+                                    <div class="flight-leg" id="return-leg-row">
+                                        <div class="leg-label return-label"><i class="fa-solid fa-plane-arrival"></i> Return</div>
+                                        <div class="flight-airline">
+                                            <h3 id="res-return-airline">Airline</h3>
+                                        </div>
+                                        <div class="flight-timing-box">
+                                            <div class="time-block">
+                                                <span class="label">Departure</span>
+                                                <span class="value" id="res-return-departure">--:--</span>
+                                            </div>
+                                            <div class="leg-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                                            <div class="time-block">
+                                                <span class="label">Arrival</span>
+                                                <span class="value" id="res-return-arrival">--:--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ai-recommendation-note">
+                                        <i class="fa-solid fa-sparkles"></i>
+                                        <p id="res-flight-reason">AI Reason</p>
+                                    </div>
+                                    <a id="res-flight-link" href="#" target="_blank" class="btn-book-action">
+                                        <span>Book Flight Now</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="result-card hotel-card" id="hotel-card-container">
+                                <div class="card-header">
+                                    <span class="card-badge hotel-badge"><i class="fa-solid fa-bed"></i> Recommended Stay</span>
+                                    <span class="price-tag" id="res-hotel-price">₹0</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="hotel-details">
+                                        <i class="fa-solid fa-hotel hotel-icon"></i>
+                                        <h3 id="res-hotel-name">Hotel Name</h3>
+                                    </div>
+                                    <div class="ai-recommendation-note">
+                                        <i class="fa-solid fa-shield-heart"></i>
+                                        <p id="res-hotel-reason">AI Reason</p>
+                                    </div>
+                                    <a id="res-hotel-link" href="#" target="_blank" class="btn-book-action btn-hotel-action">
+                                        <span>Book Hotel Stay</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Cost & Actions -->
+                        <div class="total-summary-card">
+                            <div class="summary-info">
+                                <span>Total Estimated Investment</span>
+                                <h2 id="res-total-cost">₹0 INR</h2>
+                            </div>
+                            <div class="summary-actions">
+                                <button class="btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Itinerary</button>
+                                <button id="btn-restart" class="btn-primary-glow"><i class="fa-solid fa-rotate"></i> Plan Another Trip</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Featured Routes & City Highlights -->
+                <aside class="sidebar-container" id="popular-routes">
+                    <div class="sidebar-card">
+                        <div class="sidebar-title">
+                            <i class="fa-solid fa-fire"></i>
+                            <h3>Popular Executive Routes</h3>
+                        </div>
+                        <p class="sidebar-desc">Click any destination card to auto-fill the planner!</p>
+
+                        <div class="city-cards-list">
+                            <div class="city-card" onclick="selectRoute('Mumbai', 'Saxon AI HQ', 'Delhi', 'Connaught Place')">
+                                <div class="city-card-img" style="background-image: url('/static/images/mumbai.png');"></div>
+                                <div class="city-card-content">
+                                    <span class="route-tag">MUMBAI → DELHI</span>
+                                    <h4>Financial Hub to Capital</h4>
+                                    <div class="route-meta">
+                                        <span><i class="fa-solid fa-plane"></i> ~2h 15m</span>
+                                        <span><i class="fa-solid fa-bolt"></i> 40+ Flights Daily</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="city-card" onclick="selectRoute('Delhi', 'Cyber Hub', 'Bengaluru', 'Indiranagar')">
+                                <div class="city-card-img" style="background-image: url('/static/images/delhi.png');"></div>
+                                <div class="city-card-content">
+                                    <span class="route-tag">DELHI → BENGALURU</span>
+                                    <h4>Capital to Tech Capital</h4>
+                                    <div class="route-meta">
+                                        <span><i class="fa-solid fa-plane"></i> ~2h 45m</span>
+                                        <span><i class="fa-solid fa-building"></i> High Tech Hub</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="city-card" onclick="selectRoute('Bengaluru', 'Electronic City', 'Mumbai', 'BKC Complex')">
+                                <div class="city-card-img" style="background-image: url('/static/images/bengaluru.png');"></div>
+                                <div class="city-card-content">
+                                    <span class="route-tag">BENGALURU → MUMBAI</span>
+                                    <h4>Tech Corridor Connection</h4>
+                                    <div class="route-meta">
+                                        <span><i class="fa-solid fa-plane"></i> ~1h 50m</span>
+                                        <span><i class="fa-solid fa-star"></i> Frequent Flyers Choice</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- AI Swarm Architecture Showcase -->
+        <section id="ai-swarm" class="swarm-section">
+            <div class="section-title-box">
+                <span class="section-badge"><i class="fa-solid fa-network-wired"></i> Architecture</span>
+                <h2>Powered by Multi-Agent Swarm Intelligence</h2>
+                <p>Collaborative autonomous agents dedicated to optimizing every segment of your corporate travel.</p>
+            </div>
+
+            <div class="swarm-cards-grid">
+                <div class="feature-card">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-brain"></i></div>
+                    <h3>Travel Planning Agent</h3>
+                    <p>Calculates buffer times, factors in local city traffic patterns, and incorporates live weather forecasts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-plane-up"></i></div>
+                    <h3>Flight Agent</h3>
+                    <p>Scrapes and evaluates real-time flight options to pick optimal departure windows and prices.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-hotel"></i></div>
+                    <h3>Hotel Agent</h3>
+                    <p>Finds premium executive lodging close to your meeting venue for minimal transit hassle.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="card-icon-wrapper"><i class="fa-solid fa-user-gear"></i></div>
+                    <h3>User Proxy Agent</h3>
+                    <p>Continuously validates strategy against your custom constraints and time preferences.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="fa-solid fa-plane-departure"></i>
+                    <span>SAREEN.AI</span>
+                </div>
+                <p>Next-Generation Corporate Travel Orchestration Engine</p>
+            </div>
+            <div class="footer-links">
+                <span>© 2026 Sareen Flight AI. All Rights Reserved.</span>
+                <span>Powered by Autogen & Multi-Agent Swarm</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

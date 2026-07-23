@@ -1,0 +1,10 @@
+semantic-kernel
+autogen-agentchat
+autogen-ext[web-surfer]
+playwright
+python-dotenv
+requests
+tiktoken
+aiofiles
+pydub
+autogen-ext[openai]
